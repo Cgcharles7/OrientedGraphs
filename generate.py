@@ -92,10 +92,10 @@ def save_graph_data_to_json(filename, graph_data):
     with open(filename, 'w') as f:
         json.dump(graph_data, f, indent=2)
 
-# Generate 5000 graphs without backward arcs
-graphs_no_backward = generate_graph_data(1000, (3, 25), with_backward_arcs=False)
+# Generate 100 graphs without backward arcs
+graphs_no_backward = generate_graph_data(100, (3, 25), with_backward_arcs=False)
 save_graph_data_to_json('graphs_no_backward.json', graphs_no_backward)
 
-# Generate 5000 graphs with backward arcs
-graphs_with_backward = generate_graph_data(1000, (3, 25), with_backward_arcs=True)
+# Generate 100 graphs with backward arcs
+graphs_with_backward = generate_graph_data(100, (3, 25), with_backward_arcs=True)
 save_graph_data_to_json('graphs_with_backward.json', graphs_with_backward)
