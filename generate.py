@@ -38,11 +38,12 @@ def build_directed_oriented_graph_with_backward_arcs(min_degree):
     from itertools import combinations
     
     def add_edges_with_backward(graph, nodes):
-        # Connect each pair of nodes in the subset with directed edges
+        # Connect each pair of nodes in the subset with either a forward or backward edge
         for i, j in combinations(nodes, 2):
-            graph[i][j] = 1  # Forward edge
-            if (i < j):
-                graph[j][i] = 1  # Backward edge
+            if graph[j][i] == 0:  # Ensure there's no backward edge before adding forward edge
+                graph[i][j] = 1  # Forward edge
+            else:
+                graph[i][j] = 0  # Remove forward edge if backward exists (to maintain orientation)
     
     size = min_degree * (min_degree - 1) // 2 + min_degree  # Estimate the size of the graph
     graph = [[0] * size for _ in range(size)]
@@ -67,6 +68,7 @@ def build_directed_oriented_graph_with_backward_arcs(min_degree):
         current_node += num_new_nodes + 1
     
     return graph
+
 
 def generate_graph_data(num_graphs, min_degree_range, with_backward_arcs):
     graph_data = []
