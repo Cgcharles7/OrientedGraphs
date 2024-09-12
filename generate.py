@@ -7,7 +7,7 @@ def build_directed_oriented_graph(min_degree):
     def add_edges(graph, nodes):
         # Connect each pair of nodes in the subset with directed edges
         for i, j in combinations(nodes, 2):
-            graph[i][j] = 1  # Forward edge
+            graph[i][j] = 1  # Forward edge only
     
     size = min_degree * (min_degree - 1) // 2 + min_degree  # Estimate the size of the graph
     graph = [[0] * size for _ in range(size)]
@@ -24,14 +24,15 @@ def build_directed_oriented_graph(min_degree):
         
         # Connect the central node to new nodes
         for node in new_nodes:
-            graph[current_node][node] = 1
+            graph[current_node][node] = 1  # Oriented: only forward edge
         
-        # Fully connect new nodes to each other with directed edges
+        # Fully connect new nodes to each other with oriented (one-way) directed edges
         add_edges(graph, new_nodes)
         
         current_node += num_new_nodes + 1
     
     return graph
+
 
 def build_directed_oriented_graph_with_backward_arcs(min_degree):
     from itertools import combinations
